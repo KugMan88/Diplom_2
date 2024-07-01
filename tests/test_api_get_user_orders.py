@@ -7,8 +7,8 @@ from constants.urls_constants import UrlsConstants
 class TestApiGetUserOrders:
     @allure.title('Тест получения заказа авторизованного пользователя')
     @allure.description('Получаем информация по заказу')
-    def test_auth_user_get_order_successful(self, user_token):
-        token = user_token
+    def test_auth_user_get_order_successful(self, user_data_and_token):
+        payload, response, token = user_data_and_token
         response = requests.get(UrlsConstants.ORDER, headers={'Authorization': token})
         assert response.status_code == 200 and response.json()['success']
 

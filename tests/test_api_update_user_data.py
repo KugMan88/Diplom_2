@@ -7,8 +7,8 @@ from constants.urls_constants import UrlsConstants
 class TestApiUpdateUserData:
     @allure.title('Тест изменения данных авторизованного юзера')
     @allure.description('Вносим изменения во все параметры. Данные авторизованного юзера меняются.')
-    def test_auth_user_update_data_successful(self, user_token):
-        token = user_token
+    def test_auth_user_update_data_successful(self, user_data_and_token):
+        payload, response, token = user_data_and_token
         payload = helpers.payload
         response = requests.patch(UrlsConstants.DELETE_USER, headers={'Authorization': token}, data=payload)
         assert response.status_code == 200 and response.json()['success']

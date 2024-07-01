@@ -9,14 +9,14 @@ from constants.urls_constants import UrlsConstants
 class TestApiCreateUser:
     @allure.title('Тест создания нового пользователя')
     @allure.description('Новый юзер создается')
-    def test_create_new_user_successful(self, registered_user):
-        response = registered_user
+    def test_create_new_user_successful(self, user_data_and_token):
+        payload, response, token = user_data_and_token
         assert response.status_code == 200 and response.json()['success']
 
     @allure.title('тест создания дубликата пользователя')
     @allure.description('Ошибка при создании дубликата юзера')
-    def test_create_duplicate_user_error(self, user_data):
-        payload = user_data
+    def test_create_duplicate_user_error(self, user_data_and_token):
+        payload, response, token = user_data_and_token
         response = requests.post(UrlsConstants.CREATE_USER, data=payload)
         assert response.status_code == 403 and response.text == '{"success":false,"message":"User already exists"}'
 

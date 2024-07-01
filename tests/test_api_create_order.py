@@ -8,8 +8,8 @@ from constants.ingredients_constants import IngredientsConstants
 class TestApiCreateOrder:
     @allure.title('Тест создания заказа для авторизованного юзера')
     @allure.description('Заказ создается.')
-    def test_auth_user_create_order_successful(self, user_token):
-        token = user_token
+    def test_auth_user_create_order_successful(self, user_data_and_token):
+        payload, response, token = user_data_and_token
         payload = IngredientsConstants.INGREDIENTS
         response = requests.post(UrlsConstants.ORDER, headers={'Authorization': token}, data=payload)
         assert response.status_code == 200 and response.json()['success']
